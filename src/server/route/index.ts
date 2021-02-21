@@ -1,3 +1,3 @@
-import extra from "./routes/extra";
+import articles from "./routes/articles";
 
-export default { extra };
+export default { articles };
