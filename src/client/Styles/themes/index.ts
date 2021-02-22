@@ -4,6 +4,9 @@ export const theme = {
   colors: {
     primary: "#151E35",
     secondary: "#F8A60D",
+    blue: "#3971DD",
+    black: "#000000",
+    green: "#2E9F4B",
     white: "#ffffff",
   },
 };
@@ -60,3 +63,20 @@ export const CENTER: CSSProperties = {
   justifyContent: "center",
   alignItems: "center",
 };
+
+export function hexToRgb(hex: string) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+}
+
+export function rgbColor(hex: string, a: number) {
+  return `rgba(${hexToRgb(hex)?.r},${hexToRgb(hex)?.g},${
+    hexToRgb(hex)?.b
+  },${a})`;
+}

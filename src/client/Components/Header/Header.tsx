@@ -6,15 +6,17 @@ interface HeaderProps {
   headerStyle?: React.CSSProperties;
   title: string;
   actions?: Array<{ name: string; onPress: any }>;
+  background?: string;
 }
 
 export const Header = (props: HeaderProps) => {
+  const [isActive, setIsActive] = React.useState<any>(null);
   return (
     <div
       style={{
         height: 50,
         width: "100%",
-        background: theme.colors.primary,
+        background: props.background || theme.colors.primary,
         display: "flex",
         justifyContent: "space-between",
         alignItems: "ceter",
@@ -27,7 +29,7 @@ export const Header = (props: HeaderProps) => {
         <div style={{ ...ROW, alignItems: "center" }}>
           <Text
             text={props.title}
-            presets="semiBoldM"
+            presets="semiBoldL"
             style={{ marginRight: spacing[2], color: theme.colors.white }}
           />
           <div
@@ -40,16 +42,28 @@ export const Header = (props: HeaderProps) => {
               paddingTop: spacing[1],
             }}
           >
-            <Text text="Y" presets="semiBoldM" />
+            <Text
+              text="Y"
+              presets="semiBoldL"
+              style={{ color: theme.colors.white }}
+            />
           </div>
           <div style={{ marginLeft: spacing[6], ...ROW }}>
-            {props.actions?.map((value) => (
+            {props.actions?.map((value, index) => (
               <div>
                 <Button
-                  text={value.name}
+                  text={value.name.toUpperCase()}
                   style={{ marginRight: spacing[2] }}
                   customType="clear"
-                  presets="regularR"
+                  textStyle={{
+                    color:
+                      isActive === index
+                        ? theme.colors.green
+                        : theme.colors.white,
+                  }}
+                  presets={isActive === index ? "semiBoldR" : "regularR"}
+                  onMouseOver={() => setIsActive(index)}
+                  onMouseLeave={() => setIsActive(null)}
                   onClick={value.onPress}
                 />
               </div>
