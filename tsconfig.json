@@ -9,6 +9,7 @@
     "sourceMap": true,
     "outDir": "./dist/",
     "skipLibCheck": true,
+    "baseUrl": ".",
     "lib": ["DOM"]
   },
   "exclude": ["./src/server "],

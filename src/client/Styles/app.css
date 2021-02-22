@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "NewsReader";
+  src: url(./fonts/news-reader.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "NewsReaderSemiBold";
+  src: url(./fonts/news-reader-semi-bold.ttf) format("truetype");
+}
+
+body {
+  text-align: center;
+  margin: auto;
+}

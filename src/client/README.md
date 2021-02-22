@@ -1,4 +1,4 @@
-# Client side boilerplate with ReactJS library and Typescript
+# Client side with ReactJS library and Typescript
 
 ## Introduction
 
@@ -29,7 +29,7 @@ In the client side boilerplate, Typescript has been used to achieve a more struc
 }
 ```
 
-[Airbnb's Javascript Style Guide](https://github.com/airbnb/javascript) which has been used by the majority of JavaScript and Typescript developers worldwide. Since the aim is support for both client (browser) and server side (Node.js) source code, the **env** has been set to browser and node. 
+[Airbnb's Javascript Style Guide](https://github.com/airbnb/javascript) which has been used by the majority of JavaScript and Typescript developers worldwide. Since the aim is support for both client (browser) and server side (Node.js) source code, the **env** has been set to browser and node.
 Optionally, you can override the current settings by installing `eslint` globally and running `eslint --init` to change the configurations to suit your needs. [**no-console**](https://eslint.org/docs/rules/no-console), [**comma-dangle**](https://eslint.org/docs/rules/comma-dangle) and [**react/jsx-filename-extension**](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md) rules have been turned off.
 
 ### Webpack
@@ -39,19 +39,19 @@ Optionally, you can override the current settings by installing `eslint` globall
 [webpack.config.js](https://webpack.js.org/configuration/) file has been used to describe the configurations required for webpack. Below is the webpack.config.js file which has been used.
 
 ```javascript
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
-const outputDirectory = 'dist';
+const outputDirectory = "dist";
 
 module.exports = {
-  entry: ['babel-polyfill', './src/client/index.tsx'],
+  entry: ["babel-polyfill", "./src/client/index.tsx"],
   output: {
     path: path.join(__dirname, outputDirectory),
-    filename: './js/[name].bundle.js'
+    filename: "./js/[name].bundle.js",
   },
   devtool: "source-map",
   module: {
@@ -60,77 +60,73 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: "babel-loader",
+        },
       },
       {
         test: /\.tsx?$/,
-        use:[
+        use: [
           {
-            loader: "awesome-typescript-loader"
+            loader: "awesome-typescript-loader",
           },
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         enforce: "pre",
         test: /\.js$/,
-        loader: "source-map-loader"
+        loader: "source-map-loader",
       },
       {
         test: /\.less$/,
         use: [
-          { loader: 'style-loader' },
+          { loader: "style-loader" },
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: './Less',
-              hmr: process.env.NODE_ENV === 'development',
+              publicPath: "./Less",
+              hmr: process.env.NODE_ENV === "development",
             },
           },
-          { loader: 'css-loader' },
+          { loader: "css-loader" },
           {
-            loader: 'less-loader',
+            loader: "less-loader",
             options: {
               strictMath: true,
               noIeCompat: true,
-            }
+            },
           },
-        ]
+        ],
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=100000'
+        loader: "url-loader?limit=100000",
       },
-    ]
+    ],
   },
   resolve: {
-    extensions: ['*', '.ts', '.tsx', '.js', '.jsx', '.json', '.less']
+    extensions: ["*", ".ts", ".tsx", ".js", ".jsx", ".json", ".less"],
   },
   devServer: {
     port: 3000,
     open: true,
     proxy: {
-      '/api': 'http://localhost:8050'
-    }
+      "/api": "http://localhost:8050",
+    },
   },
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-      favicon: './public/favicon.ico',
+      template: "./public/index.html",
+      favicon: "./public/favicon.ico",
       title: "Book Manager",
     }),
     new MiniCssExtractPlugin({
-      filename: './css/[name].css',
-      chunkFilename: './css/[id].css',
+      filename: "./css/[name].css",
+      chunkFilename: "./css/[id].css",
     }),
-    new CopyPlugin([
-      { from: './src/client/Assets', to: 'assets' },
-    ])
   ],
 };
-
 ```
 
 1.  **entry:** entry: ./src/client/index.tsx is where the application starts executing and Webpack starts bundling.
