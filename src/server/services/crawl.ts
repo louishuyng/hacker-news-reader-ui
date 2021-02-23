@@ -14,15 +14,15 @@ class Crawl {
 
   async analyse(
     uri: string,
-    commands: Array<($: any) => Array<{ [key in string]: any }>>
-  ): Promise<Array<Array<{ [key in string]: any }>>> {
+    commands: Array<($: any) => Array<any>>
+  ): Promise<Array<Array<any>>> {
     const options = {
       uri,
       transform: function (body: any) {
         return cheerio.load(body);
       },
     };
-    const result: Array<Array<{ [key in string]: any }>> = [];
+    const result: Array<Array<any>> = [];
     const $ = await rp(options);
 
     commands?.map(async (cmd) => {

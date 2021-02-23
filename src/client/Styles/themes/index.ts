@@ -3,7 +3,7 @@ import { CSSProperties } from "react";
 export const theme = {
   colors: {
     primary: "#151E35",
-    secondary: "#F8A60D",
+    secondary: "#FF0",
     blue: "#3971DD",
     black: "#000000",
     green: "#2E9F4B",

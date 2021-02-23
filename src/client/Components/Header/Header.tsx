@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 export const Header = (props: HeaderProps) => {
-  const [isActive, setIsActive] = React.useState<any>(null);
+  const [isActive, setIsActive] = React.useState<any>(0);
   return (
     <div
       style={{
@@ -34,7 +34,7 @@ export const Header = (props: HeaderProps) => {
           />
           <div
             style={{
-              background: theme.colors.secondary,
+              background: theme.colors.black,
               display: "flex",
               alignItems: "center",
               paddingRight: spacing[2],
@@ -45,7 +45,7 @@ export const Header = (props: HeaderProps) => {
             <Text
               text="Y"
               presets="semiBoldL"
-              style={{ color: theme.colors.white }}
+              style={{ color: theme.colors.secondary }}
             />
           </div>
           <div style={{ marginLeft: spacing[6], ...ROW }}>
@@ -62,9 +62,10 @@ export const Header = (props: HeaderProps) => {
                         : theme.colors.white,
                   }}
                   presets={isActive === index ? "semiBoldR" : "regularR"}
-                  onMouseOver={() => setIsActive(index)}
-                  onMouseLeave={() => setIsActive(null)}
-                  onClick={value.onPress}
+                  onClick={() => {
+                    setIsActive(index);
+                    value.onPress();
+                  }}
                 />
               </div>
             ))}

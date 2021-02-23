@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./Styles/app.css";
 import "antd/dist/antd.css";
-import { ArticleData } from "../server/domain/IApp";
+import { ArticleData, ArticleType } from "../server/domain/IApp";
 import { Header, Card } from "./Components";
 import { Col, Row } from "antd";
 import { spacing } from "./Styles/themes";
@@ -10,6 +10,7 @@ import { Get } from "./Services";
 
 export default () => {
   const [data, setData] = React.useState<Array<ArticleData>>([]);
+  const [type, setType] = React.useState<ArticleType>(ArticleType.BEST);
 
   const renderList = (data: Array<ArticleData>) => {
     return data?.map((val) => {
@@ -32,22 +33,22 @@ export default () => {
     (async () => {
       try {
         const res: { data: Array<ArticleData> } = await Get(
-          apiRoute.getRoute("articles")
+          apiRoute.getRoute(`articles?type=${type}`)
         );
         setData(res.data);
       } catch (e) {
         // To do later
       }
     })();
-  }, []);
+  }, [type]);
 
   return (
     <div>
       <Header
         title="Hacker News"
         actions={[
-          { name: "Best", onPress: () => null },
-          { name: "News", onPress: () => null },
+          { name: "Best", onPress: () => setType(ArticleType.BEST) },
+          { name: "News", onPress: () => setType(ArticleType.NEWS) },
         ]}
       />
       <div

@@ -13,14 +13,14 @@ interface IArticle {
 export class Article implements IArticle {
   private name: string;
   private description: string;
-  private author: User;
+  private author: User | undefined;
   private points: number;
   private refLink: string;
 
-  constructor(name: string, description: string, user: User) {
+  constructor(name: string) {
     this.name = name;
-    this.description = description;
-    this.author = user;
+    this.description = "";
+    this.author = undefined;
     this.points = 0;
     this.refLink = "";
   }
@@ -34,7 +34,10 @@ export class Article implements IArticle {
   };
 
   public displayAuthorName = (): string => {
-    return this.author.name;
+    return this.author?.name || "";
+  };
+  public updateAuthor = (user: User): void => {
+    this.author = user;
   };
 
   public displayRefLink = (): string => {
