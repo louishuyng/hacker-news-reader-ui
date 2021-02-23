@@ -1,11 +1,4 @@
-export interface AppStates {
-  username?: string;
-  textOfPostTest: string;
-  textForPost: string;
-  textOfPutTest: string;
-  textForPut: string;
-  textOfDeleteTest: string;
-  textForDelete: string;
+export interface ArticleData {
+  title: string;
+  link: string;
 }
-
-export interface AppProps {}

@@ -1,8 +1,6 @@
 import express, { Request, Response, Router, Express } from "express";
 import bodyParser from "body-parser";
 import router from "./route";
-import { crawl } from "./services/crawl";
-import { getTitleNewsHacker } from "./utils/crawl";
 
 // call express
 const app: Express = express(); // define our app using express
@@ -18,7 +16,6 @@ const port: number = Number(process.env.PORT) || 8050; // set our port
 // Send index.html on root request
 app.use(express.static("dist"));
 app.get("/", (req: Request, res: Response) => {
-  crawl.analyse("https://news.ycombinator.com/best", [getTitleNewsHacker]);
   res.sendFile("/dist/index.html");
 });
 

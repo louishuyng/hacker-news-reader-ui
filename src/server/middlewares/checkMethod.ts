@@ -8,7 +8,7 @@ export default (
   res: Response,
   next: (param?: unknown) => void
 ): void => {
-  const route = path(req.url);
+  const route = path(req.url.split("?")[0]);
   if (route.methods.includes(req.method)) {
     next();
   } else {
