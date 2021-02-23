@@ -19,14 +19,20 @@ export const Card = (props: CardProps) => {
   return (
     <AntdCard
       hoverable
-      style={props.style}
+      style={{
+        paddingLeft: spacing[4],
+        paddingRight: spacing[4],
+        paddingTop: spacing[4],
+        borderRadius: spacing[4],
+        ...props.style,
+      }}
       cover={
         <img
           src={
             props.image ||
             "https://image.freepik.com/free-vector/white-blurred-background_1034-249.jpg"
           }
-          style={{ height: 180 }}
+          style={{ height: 150, borderRadius: spacing[4] }}
         />
       }
     >

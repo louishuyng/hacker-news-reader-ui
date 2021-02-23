@@ -58,7 +58,7 @@ export const Header = (props: HeaderProps) => {
                   textStyle={{
                     color:
                       isActive === index
-                        ? theme.colors.green
+                        ? theme.colors.secondary
                         : theme.colors.white,
                   }}
                   presets={isActive === index ? "semiBoldR" : "regularR"}

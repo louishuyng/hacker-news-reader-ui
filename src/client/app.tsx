@@ -4,13 +4,13 @@ import "antd/dist/antd.css";
 import { AppProps, AppStates } from "../server/domain/IApp";
 import { Header, Card } from "./Components";
 import { Col, Row } from "antd";
-import { spacing, theme, rgbColor } from "./Styles/themes";
+import { spacing, theme } from "./Styles/themes";
 
 export default class App extends React.Component<AppProps, AppStates> {
   renderList = (data: Array<any>) => {
     return data?.map(() => {
       return (
-        <Col xl={6} lg={8} md={12} sm={16}>
+        <Col xl={4} lg={6} md={8} sm={12}>
           <Card
             title="test"
             description="test"
@@ -25,11 +25,10 @@ export default class App extends React.Component<AppProps, AppStates> {
     return (
       <div>
         <Header
-          background={theme.colors.black}
           title="Hacker News"
           actions={[
+            { name: "Best", onPress: () => null },
             { name: "News", onPress: () => null },
-            { name: "Jobs", onPress: () => null },
           ]}
         />
         <div
@@ -38,7 +37,7 @@ export default class App extends React.Component<AppProps, AppStates> {
             marginTop: spacing[7],
           }}
         >
-          <Row>{this.renderList([1, 2, 3])}</Row>
+          <Row>{this.renderList([1, 2, 3, 4, 5, 6, 7, 9, 10, 11])}</Row>
         </div>
       </div>
     );
