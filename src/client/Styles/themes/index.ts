@@ -12,6 +12,7 @@ export const theme = {
 };
 
 export type Tpresets =
+  | "regularS"
   | "regularR"
   | "regularM"
   | "regularL"
@@ -23,6 +24,12 @@ export type Tpresets =
 export const presets: {
   [key in Tpresets]: CSSProperties;
 } = {
+  // small
+  regularS: {
+    fontFamily: "Newsreader",
+    fontSize: 12,
+  },
+
   // medium
   regularM: {
     fontFamily: "Newsreader",
@@ -60,7 +67,7 @@ export const presets: {
   },
 };
 
-export const spacing = [0, 4, 8, 12, 16, 20, 24, 28, 32];
+export const spacing = [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44];
 
 export const ROW: CSSProperties = { flexDirection: "row", display: "flex" };
 export const CENTER: CSSProperties = {

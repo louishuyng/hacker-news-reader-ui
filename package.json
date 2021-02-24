@@ -13,6 +13,7 @@
     "server-dev": "nodemon"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.5.0",
     "@tsconfig/node12": "^1.0.7",
     "@types/express": "^4.17.8",
     "@types/lodash": "^4.14.168",
