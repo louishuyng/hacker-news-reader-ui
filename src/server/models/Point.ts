@@ -1,9 +1,9 @@
-interface IComment {
+interface IPoint {
   articleId: number;
   displayCount: () => number;
 }
 
-export class Comment implements IComment {
+export class Point implements IPoint {
   private count: number;
   public articleId: number;
 

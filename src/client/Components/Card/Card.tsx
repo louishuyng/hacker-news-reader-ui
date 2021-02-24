@@ -9,6 +9,9 @@ type CardProps = {
   title: string;
   timeZone?: string;
   author?: string;
+  points?: number;
+  comments?: number;
+  time?: string;
   isBookMarked?: boolean;
   image?: string;
   width?: number;
@@ -62,11 +65,16 @@ export const Card = (props: CardProps) => {
                   }}
                 >
                   <Text
-                    text="Louis"
+                    text={props.author || ""}
                     presets="regularS"
-                    style={{ marginRight: spacing[2] }}
+                    style={{ marginRight: spacing[1] }}
                   />
-                  <Text text="Now" presets="regularS" />
+                  <Text
+                    text={"-"}
+                    presets="semiBoldS"
+                    style={{ marginRight: spacing[1] }}
+                  />
+                  <Text text={props.time || ""} presets="regularS" />
                 </div>
               </div>
             )}
@@ -94,7 +102,7 @@ export const Card = (props: CardProps) => {
             <div
               style={{ ...ROW, justifyContent: "center", alignItems: "center" }}
             >
-              <Text text="1" presets="semiBoldS" />
+              <Text text={props.points || 0} presets="semiBoldS" />
               <SmileTwoTone
                 style={{
                   fontSize: 20,
@@ -108,7 +116,7 @@ export const Card = (props: CardProps) => {
             <div
               style={{ ...ROW, justifyContent: "center", alignItems: "center" }}
             >
-              <Text text="1" presets="semiBoldS" />
+              <Text text={props.comments || 0} presets="semiBoldS" />
               <CommentOutlined
                 style={{
                   fontSize: 20,

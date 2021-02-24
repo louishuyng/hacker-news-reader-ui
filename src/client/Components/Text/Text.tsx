@@ -2,7 +2,7 @@ import * as React from "react";
 import { presets, Tpresets } from "../../Styles/themes";
 
 export interface TextProps {
-  text: string;
+  text: string | number;
   presets?: Tpresets;
   style?: React.CSSProperties;
   className?: string;

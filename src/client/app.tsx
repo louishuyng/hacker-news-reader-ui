@@ -22,6 +22,10 @@ export default () => {
               window.open(val?.link);
             }}
             title={val.title}
+            time={val.time}
+            author={val.author}
+            comments={val.comments}
+            points={val.points}
             style={{ marginRight: spacing[10], marginBottom: spacing[10] }}
           />
         </Col>
