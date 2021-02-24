@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ROW, spacing, theme } from "../../Styles/themes";
+import { ROW, spacing, theme, rgbColor } from "../../Styles/themes";
 import { Text, Button } from "..";
 
 interface HeaderProps {
@@ -16,7 +16,7 @@ export const Header = (props: HeaderProps) => {
       style={{
         height: 50,
         width: "100%",
-        background: props.background || theme.colors.primary,
+        background: props.background || theme.colors.black,
         display: "flex",
         justifyContent: "space-between",
         alignItems: "ceter",
@@ -34,18 +34,22 @@ export const Header = (props: HeaderProps) => {
           />
           <div
             style={{
-              background: theme.colors.black,
+              background: theme.colors.white,
               display: "flex",
               alignItems: "center",
               paddingRight: spacing[2],
               paddingLeft: spacing[2],
-              paddingTop: spacing[1],
+              paddingTop: spacing[3],
+              paddingBottom: spacing[3],
+              width: 30,
+              height: 30,
+              borderRadius: 100,
             }}
           >
             <Text
               text="Y"
               presets="semiBoldL"
-              style={{ color: theme.colors.secondary }}
+              style={{ color: theme.colors.black }}
             />
           </div>
           <div style={{ marginLeft: spacing[6], ...ROW }}>

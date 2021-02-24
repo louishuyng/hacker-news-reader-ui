@@ -15,6 +15,7 @@ export type Tpresets =
   | "regularR"
   | "regularM"
   | "regularL"
+  | "semiBoldS"
   | "semiBoldR"
   | "semiBoldM"
   | "semiBoldL";
@@ -40,6 +41,10 @@ export const presets: {
     fontSize: 18,
   },
 
+  semiBoldS: {
+    fontFamily: "NewsReaderSemiBold",
+    fontSize: 12,
+  },
   semiBoldM: {
     fontFamily: "NewsReaderSemiBold",
     fontSize: 16,

@@ -39,13 +39,27 @@ export const Card = (props: CardProps) => {
             width: "100%",
           }}
         >
+          <div>
+            {props.isLoading ? (
+              <Skeleton.Button active style={{ width: 180, height: 15 }} />
+            ) : (
+              <div style={{ height: 50 }}>
+                <Text
+                  text={props.title}
+                  presets="semiBoldS"
+                  className="textInLine"
+                  style={{ color: theme.colors.black }}
+                />
+              </div>
+            )}
+          </div>
           <img
             src={
               props.image ||
               "https://image.freepik.com/free-vector/white-blurred-background_1034-249.jpg"
             }
             style={{
-              height: 150,
+              height: 160,
               width: "100%",
               borderRadius: spacing[4],
             }}
@@ -54,19 +68,6 @@ export const Card = (props: CardProps) => {
       }
       {...omit(props, ["title", "style"])}
     >
-      <div>
-        {props.isLoading ? (
-          <Skeleton.Button active style={{ width: 180, height: 15 }} />
-        ) : (
-          <Text
-            text={props.title}
-            presets="regularR"
-            className="textInLine"
-            style={{ color: theme.colors.black }}
-          />
-        )}
-      </div>
-
       {props.description ? (
         props.isLoading ? (
           <Skeleton.Button
