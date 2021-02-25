@@ -68,8 +68,9 @@ export const getImage = ($: any): Array<string> => {
   const result: Array<string> = [];
   $("img").each(function () {
     const src = $(this).prop("src");
+    const width = $(this).prop("width");
 
-    if (src.length > 0) {
+    if (src.length > 0 && width > 50) {
       result.push(src);
     }
   });
