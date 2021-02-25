@@ -1,10 +1,12 @@
 export default async function Get(
   url: string,
-  headers: Record<string, unknown> = {}
+  headers: Record<string, unknown> = {},
+  signal?: AbortSignal
 ): Promise<any> {
   try {
     const response: Response = await fetch(url, {
       method: "GET",
+      signal,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

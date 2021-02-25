@@ -22,6 +22,7 @@ type CardProps = {
   isLoading?: boolean;
   style?: React.CSSProperties;
   link: string;
+  signal?: AbortSignal;
 } & AntdCardProps;
 
 export const Card = (props: CardProps) => {
@@ -31,7 +32,9 @@ export const Card = (props: CardProps) => {
 
   const fetchImage = React.useCallback(async (page) => {
     const res: { image: string | undefined } = await Get(
-      apiRoute.getRoute(`image?link=${props.link}`)
+      apiRoute.getRoute(`image?link=${props.link}`),
+      {},
+      props.signal
     );
     return res.image;
   }, []);

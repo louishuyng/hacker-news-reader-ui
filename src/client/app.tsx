@@ -14,6 +14,15 @@ export default () => {
   const [type, setType] = React.useState<ArticleType>(ArticleType.BEST);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [controller, setController] = React.useState<AbortController>();
+
+  const getSignal = React.useCallback(() => {
+    if (!controller) {
+      const abortController = new AbortController();
+      setController(abortController);
+      return abortController.signal;
+    } else return controller.signal;
+  }, [controller]);
 
   const renderList = (data: Array<ArticleData>) => {
     return data?.map((val) => {
@@ -23,6 +32,7 @@ export default () => {
             onClick={() => {
               window.open(val?.link);
             }}
+            signal={getSignal()}
             link={val?.link}
             title={val.title}
             time={val.time}
@@ -37,17 +47,18 @@ export default () => {
   };
 
   const fetchList = React.useCallback(async (page, type) => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const res: { data: Array<ArticleData> } = await Get(
-        apiRoute.getRoute(`articles?type=${type}&page=${page}`)
+        apiRoute.getRoute(`articles?type=${type}&page=${page}`),
+        {},
+        getSignal()
       );
       setIsLoading(false);
       return res.data;
     } catch (err) {
       setIsLoading(false);
       return [];
-      // To do later
     }
   }, []);
 
@@ -62,10 +73,17 @@ export default () => {
     setCurrentPage(1);
   }, []);
 
+  const initNewController = React.useCallback(() => {
+    controller && controller.abort();
+    setController(new AbortController());
+  }, [controller]);
+
   React.useEffect(() => {
     (async () => {
       try {
         setData([]);
+        initNewController();
+
         const data = await fetchList(1, type);
         setData(data);
       } catch (e) {
@@ -92,7 +110,7 @@ export default () => {
       >
         <Row>{renderList(data)}</Row>
       </div>
-      {isLoading && data.length === 0 && (
+      {((isLoading && data.length === 0) || data.length === 0) && (
         <LoadingOutlined
           style={{
             fontSize: 67,
