@@ -16,7 +16,7 @@ import { Comment } from "../../models/Comment";
 import { Time } from "../../models/Time";
 
 router.route("/articles").get(async (req: Request, res: Response) => {
-  const page = req.query.p;
+  const page = req.query.page;
   const type = req.query.type;
 
   const [
@@ -36,27 +36,6 @@ router.route("/articles").get(async (req: Request, res: Response) => {
     ]
   );
 
-  const loadImages = async () => {
-    const process: Array<any> = [];
-    articles?.map((article) => {
-      process.push(
-        (async () => {
-          const [image] = await crawl.analyse(article.displayRefLink(), [
-            getImage,
-          ]);
-
-          article.updateImage(
-            image?.filter((val) => val?.includes("http"))?.[0]
-          );
-        })()
-      );
-    });
-
-    await Promise.all(process);
-  };
-
-  await loadImages();
-
   const formatedData = articles.map((article: Article) => {
     return {
       title: article.displayTitle(),
@@ -73,11 +52,24 @@ router.route("/articles").get(async (req: Request, res: Response) => {
       time: (times?.filter(
         (time) => time.articleId === article.id
       )[0] as Time)?.displayTime(),
-      image: article.displayImage(),
     };
   });
 
   res.json({ data: formatedData });
+});
+
+router.route("/image").get(async (req: Request, res: Response) => {
+  const link = req.query.link;
+
+  const loadImages = async () => {
+    const [image] = await crawl.analyse(link as string, [getImage]);
+
+    return image?.filter((val) => val?.includes("http"))?.[0];
+  };
+
+  const image = await loadImages();
+
+  res.json({ image });
 });
 
 export default router;

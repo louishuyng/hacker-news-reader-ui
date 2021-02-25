@@ -5,6 +5,9 @@ function path(url: string): IPathRoute {
     "/articles": {
       methods: ["GET"],
     },
+    "/image": {
+      methods: ["GET"],
+    },
   };
   return allRoutes[url];
 }

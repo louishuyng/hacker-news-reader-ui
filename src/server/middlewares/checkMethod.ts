@@ -8,7 +8,8 @@ export default (
   res: Response,
   next: (param?: unknown) => void
 ): void => {
-  const route = path(req.url.split("?")[0]);
+  const format = req.url.split("?")[0];
+  const route = path(`/${format.split("/")[1]}`);
   if (route.methods.includes(req.method)) {
     next();
   } else {

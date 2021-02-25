@@ -4,6 +4,8 @@ import { SmileTwoTone, CommentOutlined, BookOutlined } from "@ant-design/icons";
 import { spacing, theme, rgbColor, ROW } from "../../Styles/themes";
 import { Text } from "..";
 import { omit } from "lodash";
+import { Get } from "../../Services";
+import { apiRoute } from "../../utils/api";
 
 type CardProps = {
   title: string;
@@ -13,16 +15,36 @@ type CardProps = {
   comments?: number;
   time?: string;
   isBookMarked?: boolean;
-  image?: string;
   width?: number;
   height?: number;
   description?: string;
   isLoading?: boolean;
   style?: React.CSSProperties;
+  link: string;
 } & AntdCardProps;
 
 export const Card = (props: CardProps) => {
   const [isActive, setIsActive] = React.useState(false);
+  const [image, setImage] = React.useState<string | undefined>(undefined);
+
+  const fetchImage = React.useCallback(async (page) => {
+    const res: { image: string | undefined } = await Get(
+      apiRoute.getRoute(`image?link=${props.link}`)
+    );
+    return res.image;
+  }, []);
+
+  React.useEffect(() => {
+    (async () => {
+      try {
+        const data = await fetchImage(props.link);
+        data && setImage(data);
+      } catch (e) {
+        // To do later
+      }
+    })();
+  }, []);
+
   return (
     <AntdCard
       hoverable
@@ -81,7 +103,7 @@ export const Card = (props: CardProps) => {
           </div>
           <img
             src={
-              props.image ||
+              image ||
               "https://image.freepik.com/free-vector/white-blurred-background_1034-249.jpg"
             }
             style={{

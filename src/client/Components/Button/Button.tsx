@@ -8,6 +8,7 @@ type TButton = "primary" | "clear";
 type ButtonProps = {
   customType?: TButton;
   textStyle?: React.CSSProperties;
+  buttonStyle?: React.CSSProperties;
 } & TextProps &
   AntdButtonProps;
 
@@ -33,7 +34,10 @@ export const Button = (props: ButtonProps) => {
   const style = mappingType[props.customType || "primary"];
 
   return (
-    <AntdButton {...omit(props, "text")} style={style}>
+    <AntdButton
+      {...omit(props, "text")}
+      style={{ ...style, ...props.buttonStyle }}
+    >
       <Text
         text={props.text}
         presets={props.presets}
