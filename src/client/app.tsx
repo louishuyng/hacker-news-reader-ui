@@ -92,7 +92,19 @@ export default () => {
       >
         <Row>{renderList(data)}</Row>
       </div>
-      {isLoading && (
+      {isLoading && data.length === 0 && (
+        <LoadingOutlined
+          style={{
+            fontSize: 70,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            color: theme.colors.white,
+            marginBottom: spacing[7],
+          }}
+        />
+      )}
+      {isLoading && data.length !== 0 && (
         <LoadingOutlined
           style={{
             fontSize: 30,
