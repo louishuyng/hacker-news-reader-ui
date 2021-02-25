@@ -5,7 +5,6 @@ import {
   getAuthorNewsHacker,
   getCommentNewsHacker,
   getDataNewsHacker,
-  getImage,
   getPointNewsHacker,
   getTimeNewsHacker,
 } from "../../services/crawl";
@@ -56,20 +55,6 @@ router.route("/articles").get(async (req: Request, res: Response) => {
   });
 
   res.json({ data: formatedData });
-});
-
-router.route("/image").get(async (req: Request, res: Response) => {
-  const link = req.query.link;
-
-  const loadImages = async () => {
-    const [image] = await crawl.analyse(link as string, [getImage]);
-
-    return image?.filter((val) => val?.includes("http"))?.[0];
-  };
-
-  const image = await loadImages();
-
-  res.json({ image });
 });
 
 export default router;
