@@ -1,8 +1,9 @@
 import express, { Request, Response, Router, Express } from "express";
 import bodyParser from "body-parser";
 import router from "../route";
+import { Server } from "http";
 
-export const createServer = async (): Promise<Express> => {
+export const createServer = async (customPort?: number): Promise<Server> => {
   // call express
   const server: Express = express(); // define our app using express
 
@@ -12,7 +13,7 @@ export const createServer = async (): Promise<Express> => {
 
   server.use(bodyParser.urlencoded({ extended: true }));
 
-  const port: number = Number(process.env.PORT) || 8050; // set our port
+  const port: number = Number(process.env.PORT) || customPort || 8050; // set our port
 
   // Send index.html on root request
   server.use(express.static("dist"));
@@ -27,8 +28,8 @@ export const createServer = async (): Promise<Express> => {
 
   // START THE SERVER
   // =============================================================================
-  server.listen(port);
+  const serverApp = server.listen(port);
   console.log(`App listening on ${port}`);
 
-  return server;
+  return serverApp;
 };

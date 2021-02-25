@@ -35,24 +35,25 @@ router.route("/articles").get(async (req: Request, res: Response) => {
     ]
   );
 
-  const formatedData = articles.map((article: Article) => {
-    return {
-      title: article.displayTitle(),
-      link: article.displayRefLink(),
-      author: (authors?.filter(
-        (author) => author.articleId === article.id
-      )[0] as Author)?.displayName(),
-      points: (points?.filter(
-        (point) => point.articleId === article.id
-      )[0] as Point)?.displayCount(),
-      comments: (comments?.filter(
-        (comment) => comment.articleId === article.id
-      )[0] as Comment)?.displayCount(),
-      time: (times?.filter(
-        (time) => time.articleId === article.id
-      )[0] as Time)?.displayTime(),
-    };
-  });
+  const formatedData =
+    articles?.map((article: Article) => {
+      return {
+        title: article.displayTitle(),
+        link: article.displayRefLink(),
+        author: (authors?.filter(
+          (author) => author.articleId === article.id
+        )[0] as Author)?.displayName(),
+        points: (points?.filter(
+          (point) => point.articleId === article.id
+        )[0] as Point)?.displayCount(),
+        comments: (comments?.filter(
+          (comment) => comment.articleId === article.id
+        )[0] as Comment)?.displayCount(),
+        time: (times?.filter(
+          (time) => time.articleId === article.id
+        )[0] as Time)?.displayTime(),
+      };
+    }) || [];
 
   res.json({ data: formatedData });
 });
