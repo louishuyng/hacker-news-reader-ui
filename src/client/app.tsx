@@ -11,6 +11,7 @@ import { Get } from "./Services";
 export default () => {
   const [data, setData] = React.useState<Array<ArticleData>>([]);
   const [type, setType] = React.useState<ArticleType>(ArticleType.BEST);
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
 
   const renderList = (data: Array<ArticleData>) => {
     return data?.map((val) => {
@@ -23,6 +24,7 @@ export default () => {
             }}
             title={val.title}
             time={val.time}
+            image={val.image}
             author={val.author}
             comments={val.comments}
             points={val.points}
@@ -33,18 +35,25 @@ export default () => {
     });
   };
 
+  const fetchList = React.useCallback(async (page, type) => {
+    const res: { data: Array<ArticleData> } = await Get(
+      apiRoute.getRoute(`articles?type=${type}?page=${page}`)
+    );
+    return res.data;
+  }, []);
+
+  // const getMore = React.useCallback(() => {}, [currentPage]);
+
   React.useEffect(() => {
     (async () => {
       try {
-        const res: { data: Array<ArticleData> } = await Get(
-          apiRoute.getRoute(`articles?type=${type}`)
-        );
-        setData(res.data);
+        const data = await fetchList(currentPage, type);
+        setData(data);
       } catch (e) {
         // To do later
       }
     })();
-  }, [type]);
+  }, [type, currentPage]);
 
   return (
     <div>

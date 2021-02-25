@@ -4,18 +4,22 @@ interface IArticle {
   displayDescription: () => string;
   displayRefLink: () => string;
   updateRefLink: (val: string) => void;
+  updateImage: (val: string) => void;
+  displayImage: () => string;
 }
 
 export class Article implements IArticle {
   public id: number;
   private name: string;
   private description: string;
+  private image: string;
   private refLink: string;
 
   constructor(name: string, id: number) {
     this.id = id;
     this.name = name;
     this.description = "";
+    this.image = "";
     this.refLink = "";
   }
 
@@ -32,5 +36,12 @@ export class Article implements IArticle {
   };
   public updateRefLink = (val: string): void => {
     this.refLink = val;
+  };
+
+  public displayImage = (): string => {
+    return this.image;
+  };
+  public updateImage = (val: string): void => {
+    this.image = val;
   };
 }

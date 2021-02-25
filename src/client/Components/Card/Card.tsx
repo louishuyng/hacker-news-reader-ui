@@ -102,7 +102,9 @@ export const Card = (props: CardProps) => {
             <div
               style={{ ...ROW, justifyContent: "center", alignItems: "center" }}
             >
-              <Text text={props.points || 0} presets="semiBoldS" />
+              <div style={{ width: 35 }}>
+                <Text text={props.points || 0} presets="semiBoldS" />
+              </div>
               <SmileTwoTone
                 style={{
                   fontSize: 20,
@@ -116,7 +118,9 @@ export const Card = (props: CardProps) => {
             <div
               style={{ ...ROW, justifyContent: "center", alignItems: "center" }}
             >
-              <Text text={props.comments || 0} presets="semiBoldS" />
+              <div style={{ width: 35 }}>
+                <Text text={props.comments || 0} presets="semiBoldS" />
+              </div>
               <CommentOutlined
                 style={{
                   fontSize: 20,
@@ -130,6 +134,7 @@ export const Card = (props: CardProps) => {
             <div
               style={{ ...ROW, justifyContent: "center", alignItems: "center" }}
             >
+              <div style={{ width: 35 }} />
               <BookOutlined
                 style={{
                   fontSize: 20,

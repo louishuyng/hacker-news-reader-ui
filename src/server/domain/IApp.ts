@@ -5,6 +5,7 @@ export interface ArticleData {
   points: number;
   comments: number;
   time: string;
+  image?: string;
 }
 
 export enum ArticleType {

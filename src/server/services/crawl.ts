@@ -64,6 +64,19 @@ export const getCommentNewsHacker = ($: any): Array<any> => {
   return result;
 };
 
+export const getImage = ($: any): Array<string> => {
+  const result: Array<string> = [];
+  $("img").each(function () {
+    const src = $(this).prop("src");
+
+    if (src.length > 0) {
+      result.push(src);
+    }
+  });
+
+  return result;
+};
+
 export const getTimeNewsHacker = ($: any): Array<any> => {
   const result: Array<any> = [];
   $("td.subtext").each(function (index: number) {
@@ -98,17 +111,23 @@ class Crawl {
       },
     };
     const result: Array<Array<any>> = [];
-    const $ = await rp(options);
 
-    commands?.map(async (cmd) => {
-      try {
-        result.push(cmd($));
-      } catch (err) {
-        // To do later
-      }
-    });
+    try {
+      const $ = await rp(options);
 
-    return result;
+      commands?.map(async (cmd) => {
+        try {
+          result.push(cmd($));
+        } catch (err) {
+          // To do later
+        }
+      });
+      return result;
+    } catch (err) {
+      // To do later
+    } finally {
+      return result;
+    }
   }
 }
 
