@@ -6,6 +6,7 @@ import { Text } from "..";
 import { omit } from "lodash";
 import { Get } from "../../Services";
 import { apiRoute } from "../../utils/api";
+import "./Card.css";
 
 type CardProps = {
   title: string;
@@ -26,6 +27,7 @@ type CardProps = {
 export const Card = (props: CardProps) => {
   const [isActive, setIsActive] = React.useState(false);
   const [image, setImage] = React.useState<string | undefined>(undefined);
+  const [isLoadingImage, setIsLoadingImage] = React.useState<boolean>(false);
 
   const fetchImage = React.useCallback(async (page) => {
     const res: { image: string | undefined } = await Get(
@@ -37,9 +39,12 @@ export const Card = (props: CardProps) => {
   React.useEffect(() => {
     (async () => {
       try {
+        setIsLoadingImage(true);
         const data = await fetchImage(props.link);
         data && setImage(data);
+        setIsLoadingImage(false);
       } catch (e) {
+        setIsLoadingImage(false);
         // To do later
       }
     })();
@@ -101,17 +106,21 @@ export const Card = (props: CardProps) => {
               </div>
             )}
           </div>
-          <img
-            src={
-              image ||
-              "https://image.freepik.com/free-vector/white-blurred-background_1034-249.jpg"
-            }
-            style={{
-              height: 190,
-              width: "100%",
-              borderRadius: spacing[4],
-            }}
-          />
+          {isLoadingImage || !image ? (
+            <Skeleton.Image
+              style={{ height: 190, width: "100%", borderRadius: spacing[4] }}
+            />
+          ) : (
+            <img
+              loading="lazy"
+              src={image}
+              style={{
+                height: 190,
+                width: "100%",
+                borderRadius: spacing[4],
+              }}
+            />
+          )}
           <div
             style={{
               marginTop: spacing[4],
