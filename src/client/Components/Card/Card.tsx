@@ -68,6 +68,7 @@ export const Card = (props: CardProps) => {
           style={{
             paddingLeft: spacing[4],
             paddingRight: spacing[4],
+            width: "100%",
           }}
         >
           <div>
@@ -128,8 +129,6 @@ export const Card = (props: CardProps) => {
             style={{
               marginTop: spacing[4],
               justifyContent: "space-between",
-              paddingLeft: spacing[4],
-              paddingRight: spacing[4],
               ...ROW,
             }}
           >

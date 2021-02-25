@@ -21,3 +21,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.ant-col {
+  width: -webkit-fill-available;
+}
