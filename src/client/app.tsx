@@ -95,10 +95,10 @@ export default () => {
       {isLoading && data.length === 0 && (
         <LoadingOutlined
           style={{
-            fontSize: 70,
+            fontSize: 67,
             position: "absolute",
             top: "50%",
-            left: "50%",
+            left: "46%",
             color: theme.colors.white,
             marginBottom: spacing[7],
           }}

@@ -68,7 +68,6 @@ export const Card = (props: CardProps) => {
           style={{
             paddingLeft: spacing[4],
             paddingRight: spacing[4],
-            width: "100%",
           }}
         >
           <div>
@@ -108,7 +107,11 @@ export const Card = (props: CardProps) => {
           </div>
           {isLoadingImage || !image ? (
             <Skeleton.Image
-              style={{ height: 190, width: "100%", borderRadius: spacing[4] }}
+              style={{
+                height: 190,
+                width: "100%",
+                borderRadius: spacing[4],
+              }}
             />
           ) : (
             <img
