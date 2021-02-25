@@ -70,7 +70,7 @@ export const getImage = ($: any): Array<string> => {
     const src = $(this).prop("src");
     const width = $(this).prop("width");
 
-    if (src.length > 0 && width > 70) {
+    if (src && parseInt(width) > 100) {
       result.push(src);
     }
   });
