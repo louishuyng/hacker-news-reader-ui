@@ -5,6 +5,7 @@ import { Point } from "../models/Point";
 import { Author } from "../models/Author";
 import { Comment } from "../models/Comment";
 import { Time } from "../models/Time";
+import { imageProcess } from "../utils/image";
 
 export const getDataNewsHacker = ($: any): Array<any> => {
   const result: Array<any> = [];
@@ -71,7 +72,7 @@ export const getImage = ($: any): Array<string> => {
     const width = $(this).prop("width");
 
     if (src && parseInt(width) > 100) {
-      result.push(src);
+      result.push(imageProcess(src));
     }
   });
 
