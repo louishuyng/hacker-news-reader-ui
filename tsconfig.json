@@ -10,6 +10,7 @@
     "outDir": "./dist/",
     "skipLibCheck": true,
     "baseUrl": ".",
+    "noImplicitThis": false,
     "lib": ["DOM"]
   },
   "exclude": ["./src/server "],
