@@ -57,6 +57,11 @@ export default () => {
     setData([...data, ...newData]);
   }, [currentPage, type, data]);
 
+  const changeType = React.useCallback((type) => {
+    setType(type);
+    setCurrentPage(1);
+  }, []);
+
   React.useEffect(() => {
     (async () => {
       try {
@@ -74,8 +79,8 @@ export default () => {
       <Header
         title="Hacker News"
         actions={[
-          { name: "Best", onPress: () => setType(ArticleType.BEST) },
-          { name: "News", onPress: () => setType(ArticleType.NEWS) },
+          { name: "Best", onPress: () => changeType(ArticleType.BEST) },
+          { name: "News", onPress: () => changeType(ArticleType.NEWS) },
         ]}
       />
       <div
@@ -88,7 +93,13 @@ export default () => {
         <Row>{renderList(data)}</Row>
       </div>
       {isLoading && (
-        <LoadingOutlined style={{ fontSize: 30, color: theme.colors.white }} />
+        <LoadingOutlined
+          style={{
+            fontSize: 30,
+            color: theme.colors.white,
+            marginBottom: spacing[7],
+          }}
+        />
       )}
       {data.length !== 0 && !isLoading && (
         <Button
@@ -99,6 +110,7 @@ export default () => {
           buttonStyle={{
             borderRadius: spacing[5],
             backgroundColor: theme.colors.white,
+            marginBottom: spacing[7],
           }}
           textStyle={{
             color: theme.colors.black,
