@@ -61,6 +61,7 @@ npm run build
 
 - User can bookmark the favorite articles
 - User can read the comments
+- User can know what articles be read before
 - User can sync up with some favorite tools: Notion, Evernote, etc, ...
 
 ## Conclusion
