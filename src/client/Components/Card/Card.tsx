@@ -43,7 +43,7 @@ export const Card = (props: CardProps) => {
 
   React.useEffect(() => {
     (async () => {
-      if (!props.canFetch) return;
+      if (!props.canFetch || image) return;
       try {
         setIsLoadingImage(true);
         const data = await fetchImage(props.link);
@@ -56,7 +56,7 @@ export const Card = (props: CardProps) => {
         // To do later
       }
     })();
-  }, [props.canFetch]);
+  }, [props.canFetch, image]);
 
   return (
     <AntdCard

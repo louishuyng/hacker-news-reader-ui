@@ -9,13 +9,14 @@ import { apiRoute } from "./utils/api";
 import { Get } from "./Services";
 import { LoadingOutlined } from "@ant-design/icons";
 
+const MAX_CONCURRENT_IMAGE = 5;
 export default () => {
   const [data, setData] = React.useState<Array<ArticleData> | Array<any>>([]);
   const [type, setType] = React.useState<ArticleType>(ArticleType.BEST);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [isLoading, setIsLoading] = React.useState(false);
   const [controller, setController] = React.useState<AbortController>();
-  const [fetchImage, setFetchImage] = React.useState(0);
+  const [fetchImage, setFetchImage] = React.useState(1);
 
   const getSignal = React.useCallback(() => {
     if (!controller) {
@@ -27,14 +28,21 @@ export default () => {
 
   const renderList = (data: Array<ArticleData>) => {
     return data?.map((val, index) => {
+      console.log(fetchImage);
+      console.log(index);
       return (
         <Col xl={6} lg={6} md={8} sm={12}>
           <Card
             onClick={() => {
               window.open(val?.link);
             }}
-            canFetch={index === fetchImage}
-            fetchDone={() => setFetchImage(index + 1)}
+            canFetch={
+              index + 1 <=
+                MAX_CONCURRENT_IMAGE *
+                  Math.ceil(fetchImage / MAX_CONCURRENT_IMAGE) ||
+              (index === fetchImage && fetchImage % MAX_CONCURRENT_IMAGE === 0)
+            }
+            fetchDone={() => fetchImage < index + 1 && setFetchImage(index + 1)}
             signal={getSignal()}
             link={val?.link}
             title={val.title}
@@ -85,6 +93,7 @@ export default () => {
     (async () => {
       try {
         setData([]);
+        setFetchImage(1);
         initNewController();
 
         const data = await fetchList(1, type);
