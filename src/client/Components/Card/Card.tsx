@@ -23,6 +23,8 @@ type CardProps = {
   style?: React.CSSProperties;
   link: string;
   signal?: AbortSignal;
+  fetchDone?: () => void;
+  canFetch?: boolean;
 } & AntdCardProps;
 
 export const Card = (props: CardProps) => {
@@ -41,17 +43,20 @@ export const Card = (props: CardProps) => {
 
   React.useEffect(() => {
     (async () => {
+      if (!props.canFetch) return;
       try {
         setIsLoadingImage(true);
         const data = await fetchImage(props.link);
+        props.fetchDone && props.fetchDone();
         data && setImage(data);
         setIsLoadingImage(false);
       } catch (e) {
+        props.fetchDone && props.fetchDone();
         setIsLoadingImage(false);
         // To do later
       }
     })();
-  }, []);
+  }, [props.canFetch]);
 
   return (
     <AntdCard
